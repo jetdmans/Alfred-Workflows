@@ -1,11 +1,10 @@
 Alfred Workflows
 ====================
 
-## Install
+## Installation
 
-Download and open file using [Alfred 2](http://www.alfredapp.com/).
-
-P.S.: You need to [buy the Powerpack](https://buy.alfredapp.com/) to use these workflows.
+Télécharger et ouvrir le fichier .alfredworkflow avec [Alfred 2](http://www.alfredapp.com/).
+P.S.: Vous avez besoin [d'acheter le Powerpack](https://buy.alfredapp.com/) pour utiliser les workflows.
 
 ## Workflows
 
