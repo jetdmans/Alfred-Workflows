@@ -1,2 +1,2 @@
-Alfred-Workflows
+Alfred Workflows
 ====================
