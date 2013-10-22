@@ -1,2 +1,2 @@
--Alfredv2-Extensions
+Alfredv2-Extensions
 ====================
