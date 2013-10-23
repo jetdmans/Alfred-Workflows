@@ -21,4 +21,6 @@ Ensuite vous pourrez utiliser la commande `t411` pour rechercher des torrents su
 
 Lors de votre recherche un appuie sur la touche `Entrée` permettra de lancer le torrent avec votre application par défaut.  
 Un appuie sur les touches `Entrée`+`⌥ ` permettra de télécharger le fichier .torrent sans le lancer.  
-Un appuie sur les touches `Entrée`+`⌘` permettra d'accéder à la page de description du torrent sur t411.me. 
+Un appuie sur les touches `Entrée`+`⌘` permettra d'accéder à la page de description du torrent sur t411.me.   
+  
+![screenshot](http://image.noelshack.com/fichiers/2013/43/1382542084-capture-d-ecran-2013-10-23-a-17-27-21.png)
