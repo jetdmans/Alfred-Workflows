@@ -54,7 +54,7 @@ function showCategory($w) {
 
   foreach ($categories as $masterCategory) {
     foreach ($masterCategory->cats as $cat) {
-      $w->result("", "", "#" . $cat->id . " = " . $masterCategory->name . "->" . $cat->name, "", 'icon.png');
+      $w->result("", "", "#" . $cat->id . " = " . $masterCategory->name . "->" . $cat->name, "", 'icon.png', 'no', "#" . $cat->id . " ");
     }
   }
 
