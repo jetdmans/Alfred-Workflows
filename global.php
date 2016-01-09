@@ -45,6 +45,24 @@ function handleError($errorCode, $w) {
 }
 
 /**
+ * @param Workflows $w
+ */
+function showCategory($w) {
+
+  $json = file_get_contents('category.json');
+  $categories = json_decode($json);
+
+  foreach ($categories as $masterCategory) {
+    foreach ($masterCategory->cats as $cat) {
+      $w->result("", "", "#" . $cat->id . " = " . $masterCategory->name . "->" . $cat->name, "", 'icon.png');
+    }
+  }
+
+  echo $w->toxml();
+  exit;
+}
+
+/**
  * @param string $pseudo
  * @param string $password
  * @param Workflows $w
@@ -81,7 +99,25 @@ function searchT411($query, $token) {
 
   curl_setopt_array($curl, array(
     CURLOPT_RETURNTRANSFER => 1,
-    CURLOPT_URL => URL_API_T411 . "torrents/search/" . urlencode($query) . "?offset=0&limit=100",
+    CURLOPT_URL => URL_API_T411 . "torrents/search/" . urlencode($query) . "?offset=0&limit=1000",
+    CURLOPT_HTTPHEADER => array(
+      "Content-type: application/xml",
+      "Authorization: " . $token,
+    )
+  ));
+
+  $resp = curl_exec($curl);
+  curl_close($curl);
+
+  return json_decode($resp);
+}
+
+function searchT411Top($token, $type) {
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => URL_API_T411 . "torrents/top/" . $type,
     CURLOPT_HTTPHEADER => array(
       "Content-type: application/xml",
       "Authorization: " . $token,
@@ -136,4 +172,74 @@ function getUri($token, $query) {
   curl_close($curl);
 
   return json_decode($resp)->rewritename;
+}
+
+/**
+ * @param integer $idCategory
+ * @return string
+ */
+function getCategoryName($idCategory) {
+  $json = file_get_contents('category.json');
+  $categories = json_decode($json);
+
+  foreach ($categories as $masterCategory) {
+    if($masterCategory->id == $idCategory) {
+      return $masterCategory->name;
+    } else if(isset($masterCategory->cats)) {
+      foreach ($masterCategory->cats as $cat) {
+        if($cat->id == $idCategory) {
+          return $cat->name;
+        }
+      }
+    }
+  }
+
+  return $idCategory;
+}
+
+/**
+ * @param string $str
+ * @return string
+ */
+function formatQuery($str) {
+  return strtolower(trim($str));
+}
+
+/**
+ * @param string $name
+ * @param Workflows $w
+ * @return string
+ */
+function extractIdCategory($name, $w) {
+  $catId = formatQuery(str_replace("#", "", explode(" ", $name)[0]));
+
+  if(!is_numeric($catId)) {
+    showCategory($w);
+  }
+
+  return $catId;
+}
+
+/**
+ * @param $query
+ * @param $catId
+ * @param $token
+ * @return mixed
+ */
+function searchT411Cat($query, $catId, $token) {
+  $curl = curl_init();
+
+  curl_setopt_array($curl, array(
+    CURLOPT_RETURNTRANSFER => 1,
+    CURLOPT_URL => URL_API_T411 . "torrents/search/" . urlencode($query) . "?offset=0&limit=1000&cid=" . $catId,
+    CURLOPT_HTTPHEADER => array(
+      "Content-type: application/xml",
+      "Authorization: " . $token,
+    )
+  ));
+
+  $resp = curl_exec($curl);
+  curl_close($curl);
+
+  return json_decode($resp);
 }
