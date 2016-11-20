@@ -3,8 +3,8 @@ error_reporting(E_ERROR);
 include_once("workflows.php");
 $w = new Workflows();
 
-define("URL_API_T411", "http://api.t411.ch/");
-define("URL_T411", "http://t411.ch/");
+define("URL_API_T411", "http://api.t411.li/");
+define("URL_T411", "http://t411.li/");
 define("CYPER_KEY", "acca45ed2534ebbd3ff7398a758eeff3");
 
 $pseudo = $w->get("t.name", "settings.plist");
